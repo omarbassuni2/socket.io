@@ -8,9 +8,13 @@ export class SocketIoGateway implements OnModuleInit {
     private server: any;
 
     onModuleInit() {
-        this.server.on('connection', (socket) => {
-            console.log(socket.id, ': Connected')
-        })
+        try {
+            this.server.on('connection', (socket) => {
+                console.log(socket.id, ': Connected')
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     @SubscribeMessage('message')
