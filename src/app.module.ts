@@ -2,35 +2,14 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import * as net from 'net';
+import { TcpServer } from './modules/tcp/tcp.server';
 
 @Module({
   imports: [],
   controllers: [AppController],
   providers: [
     AppService,
-    {
-      provide: 'TcpServerService',
-      useFactory: () => {
-        const server = net.createServer((socket) => {
-          socket.write('From NestJs TcpServerService\r\n');
-
-          let receivedData = '';
-
-          socket.on('data', (data) => {
-            receivedData += data.toString();
-            if (receivedData.includes('\n')) {
-              const responseMessage = `${receivedData.trim()} from server\r\n`;
-              socket.write(responseMessage);
-              receivedData = '';
-            }
-          });
-        });
-
-        server.listen(9050, '0.0.0.0');
-
-        return server;
-      },
-    },
+    TcpServer
   ],
 })
 export class AppModule { }
