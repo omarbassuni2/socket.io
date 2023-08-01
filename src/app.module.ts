@@ -26,7 +26,7 @@ import * as net from 'net';
           });
         });
 
-        server.listen(9050, '127.0.0.1');
+        server.listen(9050, '0.0.0.0');
 
         return server;
       },
