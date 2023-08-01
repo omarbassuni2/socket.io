@@ -1,7 +1,7 @@
 import { OnModuleInit } from "@nestjs/common";
 import { WebSocketGateway, SubscribeMessage, MessageBody, WebSocketServer } from "@nestjs/websockets";
 
-@WebSocketGateway(9050)
+@WebSocketGateway(1)
 export class SocketIoGateway implements OnModuleInit {
 
     @WebSocketServer()
