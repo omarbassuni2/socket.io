@@ -9,7 +9,6 @@ import { TcpToSocketioModule } from './modules/tcp-to-socketio/tcp-to-socketio.m
   controllers: [AppController],
   providers: [
     AppService,
-    // TcpServer
   ],
 })
 export class AppModule { }
