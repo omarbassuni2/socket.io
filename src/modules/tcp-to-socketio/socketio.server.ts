@@ -20,19 +20,12 @@ export class SocketIOServer implements OnModuleInit {
         }
     }
 
-    @SubscribeMessage('serverResponse')
+    @SubscribeMessage('message')
     async handleMessage(client, data) {
-        try {
-            const MerchantID = findMerchantIDUsingStringify(new XMLParser().parse(data))
-            if (MerchantID) {
-                const response = await this.tcpToSocketio.sendMessageToCommander(MerchantID, data);
-                if (typeof (response) === 'string') throw new Error(response)
-            }
-            else throw new Error('Please send a valid XML with atleast MerchantID')
-        } catch (error) {
-            this.server.emit('onMessage', error.message)
+        const MerchantID = findMerchantIDUsingStringify(new XMLParser().parse(data))
+        if (MerchantID) {
+            const response = await this.tcpToSocketio.sendMessageToCommander(MerchantID, data);
         }
-
     }
 
     async sendMessageToBackend(message) {
